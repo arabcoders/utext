@@ -292,12 +292,12 @@ class UText
     /**
      * Replace the given value in the given string.
      *
-     * @param string $search
-     * @param string $replace
+     * @param string|array $search
+     * @param string|array $replace
      *
      * @return static
      */
-    public function replace(string $search, string $replace): self
+    public function replace($search, $replace): self
     {
         return new static(str_replace($search, $replace, $this->value));
     }
@@ -474,7 +474,7 @@ class UText
      *
      * @return array
      */
-    public function __debugInfo(): array
+    public function __debugInfo()
     {
         return ['string' => (string)$this->value];
     }

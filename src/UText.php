@@ -7,7 +7,9 @@ namespace arabcoders\utext;
 use Closure;
 use arabcoders\utext\UTextOps as StrOps;
 
-class UText implements Stringable
+require_once __DIR__ . '/Stringable.php';
+
+class UText implements \Stringable
 {
     /**
      * The underlying string value.

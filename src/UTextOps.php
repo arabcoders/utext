@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace arabcoders\utext;
 
@@ -75,7 +76,7 @@ class UTextOps
      *
      * @return string
      */
-    public static function before($subject, $search): string
+    public static function before(string $subject, string $search): string
     {
         return $search === '' ? $subject : explode($search, $subject)[0];
     }
@@ -88,7 +89,7 @@ class UTextOps
      *
      * @return string
      */
-    public static function beforeLast($subject, $search): string
+    public static function beforeLast(string $subject, string $search): string
     {
         if (empty($search)) {
             return $subject;

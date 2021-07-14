@@ -26,9 +26,4 @@ echo (new UText('foo'))->upper();
 
 // -- or you could use the shortcut function auto included by the package.
 echo u('foo')->upper();
-
-// to pass string type check you could call
-
-// -- or you could use the shortcut function auto included by the package.
-echo u('foo')->upper()->__toString();
 ```

@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace arabcoders\utext;
 
 use Closure;
 use arabcoders\utext\UTextOps as StrOps;
 
-class UText
+class UText implements Stringable
 {
     /**
      * The underlying string value.
@@ -142,7 +144,7 @@ class UText
      *
      * @return static
      */
-    public function dirname($levels = 1): self
+    public function dirname(int $levels = 1): self
     {
         return new static(dirname($this->value, $levels));
     }
@@ -179,7 +181,7 @@ class UText
      *
      * @return array
      */
-    public function explode($delimiter, $limit = PHP_INT_MAX): array
+    public function explode(string $delimiter, int $limit = PHP_INT_MAX): array
     {
         return explode($delimiter, $this->value, $limit);
     }
@@ -419,7 +421,7 @@ class UText
     /**
      * Trim the string of the given characters.
      *
-     * @param string $characters
+     * @param string|null $characters
      *
      * @return static
      */
@@ -431,11 +433,11 @@ class UText
     /**
      * Execute the given callback if the string is empty.
      *
-     * @param callable $callback
+     * @param Closure $callback
      *
      * @return static|mixed
      */
-    public function whenEmpty($callback)
+    public function whenEmpty(Closure $callback)
     {
         if ($this->isEmpty()) {
             $result = $callback($this);
@@ -466,7 +468,7 @@ class UText
      */
     public function __toString(): string
     {
-        return (string)$this->value;
+        return $this->value;
     }
 
     /**
@@ -476,6 +478,6 @@ class UText
      */
     public function __debugInfo()
     {
-        return ['string' => (string)$this->value];
+        return ['string' => $this->value];
     }
 }

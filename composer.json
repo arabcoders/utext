@@ -1,7 +1,7 @@
 {
     "name": "arabcoders/utext",
     "type": "library",
-    "description": "String Manipulation Library",
+    "description": "String manipulation library",
     "keywords": [
         "string",
         "utf8",
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "ext-mbstring": "*"
     },
     "autoload": {

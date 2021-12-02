@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace arabcoders\utext;
@@ -130,7 +131,7 @@ class UTextOps
      *
      * @return bool
      */
-    public static function contains(string $haystack, $needles): bool
+    public static function contains(string $haystack, string|array $needles): bool
     {
         foreach ((array)$needles as $needle) {
             if (!empty($needle) && false !== mb_strpos($haystack, $needle, 0, static::$encoding)) {
@@ -168,7 +169,7 @@ class UTextOps
      *
      * @return bool
      */
-    public static function endsWith(string $haystack, $needles): bool
+    public static function endsWith(string $haystack, string|array $needles): bool
     {
         foreach ((array)$needles as $needle) {
             if (static::substr($haystack, -static::length($needle)) === (string)$needle) {
@@ -202,9 +203,9 @@ class UTextOps
      *
      * @return bool
      */
-    public static function is($pattern, string $value): bool
+    public static function is(string|array $pattern, string $value): bool
     {
-        $fn = function ($value) {
+        $fn = static function ($value) {
             if ($value === null) {
                 return [];
             }
@@ -418,7 +419,7 @@ class UTextOps
      */
     public static function title(string $value): string
     {
-        return (string)mb_convert_case($value, MB_CASE_TITLE, static::$encoding);
+        return mb_convert_case($value, MB_CASE_TITLE, static::$encoding);
     }
 
     /**
@@ -429,7 +430,7 @@ class UTextOps
      *
      * @return bool
      */
-    public static function startsWith(string $haystack, $needles): bool
+    public static function startsWith(string $haystack, string|array $needles): bool
     {
         foreach ((array)$needles as $needle) {
             if ((string)$needle !== '' && static::substr($haystack, 0, static::length($needle)) === (string)$needle) {
@@ -451,6 +452,6 @@ class UTextOps
      */
     public static function substr(string $string, int $start, ?int $length = null): string
     {
-        return (string)mb_substr($string, $start, $length, static::$encoding);
+        return mb_substr($string, $start, $length, static::$encoding);
     }
 }

@@ -7,8 +7,6 @@ namespace arabcoders\utext;
 use Closure;
 use arabcoders\utext\UTextOps as StrOps;
 
-require_once __DIR__ . '/Stringable.php';
-
 class UText implements \Stringable
 {
     /**
@@ -122,7 +120,7 @@ class UText implements \Stringable
      *
      * @return bool
      */
-    public function contains($needles): bool
+    public function contains(array|string $needles): bool
     {
         return StrOps::contains($this->value, $needles);
     }
@@ -158,7 +156,7 @@ class UText implements \Stringable
      *
      * @return bool
      */
-    public function endsWith($needles): bool
+    public function endsWith(string|array $needles): bool
     {
         return StrOps::endsWith($this->value, $needles);
     }
@@ -207,7 +205,7 @@ class UText implements \Stringable
      *
      * @return bool
      */
-    public function is($pattern): bool
+    public function is(string|array $pattern): bool
     {
         return StrOps::is($pattern, $this->value);
     }
@@ -301,7 +299,7 @@ class UText implements \Stringable
      *
      * @return static
      */
-    public function replace($search, $replace): self
+    public function replace(string|array $search, string|array $replace): self
     {
         return new static(str_replace($search, $replace, $this->value));
     }
@@ -349,12 +347,12 @@ class UText implements \Stringable
      * Replace the patterns matching the given regular expression.
      *
      * @param string $pattern
-     * @param Closure|string $replace
+     * @param string|Closure $replace
      * @param int $limit
      *
      * @return static
      */
-    public function replaceMatches(string $pattern, $replace, int $limit = -1): self
+    public function replaceMatches(string $pattern, string|Closure $replace, int $limit = -1): self
     {
         if ($replace instanceof Closure) {
             return new static(preg_replace_callback($pattern, $replace, $this->value, $limit));
@@ -398,11 +396,11 @@ class UText implements \Stringable
     /**
      * Determine if a given string starts with a given substring.
      *
-     * @param string|array $needles
+     * @param array|string $needles
      *
      * @return bool
      */
-    public function startsWith($needles): bool
+    public function startsWith(array|string $needles): bool
     {
         return StrOps::startsWith($this->value, $needles);
     }
@@ -437,14 +435,12 @@ class UText implements \Stringable
      *
      * @param Closure $callback
      *
-     * @return static|mixed
+     * @return mixed|static
      */
     public function whenEmpty(Closure $callback)
     {
         if ($this->isEmpty()) {
-            $result = $callback($this);
-
-            return $result ?? $this;
+            return $callback($this) ?? $this;
         }
 
         return $this;
@@ -478,7 +474,7 @@ class UText implements \Stringable
      *
      * @return array
      */
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         return ['string' => $this->value];
     }

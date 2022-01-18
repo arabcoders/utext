@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace arabcoders\utext;
 
-use Closure;
 use arabcoders\utext\UTextOps as StrOps;
+use Closure;
+use JsonSerializable;
+use Stringable;
 
-class UText implements \Stringable
+class UText implements Stringable, JsonSerializable
 {
     /**
      * The underlying string value.
@@ -477,5 +479,10 @@ class UText implements \Stringable
     public function __debugInfo(): array
     {
         return ['string' => $this->value];
+    }
+
+    public function jsonSerialize(): string
+    {
+        return $this->value;
     }
 }
